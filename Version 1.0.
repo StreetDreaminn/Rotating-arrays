@@ -1,0 +1,66 @@
+import java.util.Arrays;
+
+public class Main {
+
+    /*
+    Rotating values inside an array either to the left or right.
+    
+    Examples with the starting array {0, 1, 2, 3, 4, 5, 6}	 * e.g. rotate(1, true)   ->  {6, 0, 1, 2, 3, 4, 5}
+                                                             * e.g. rotate(3, false)  ->  {3, 4, 5, 6, 0, 1, 2}
+     Where n is the number of positions to rotate the array by and rotateRight is a boolean where if true, rotate elements to the right, otherwise, rotate
+     them to the left
+     */
+
+    public static void rotate(int[] data, int n, boolean rotateRight) {
+
+        // Initialise a temp array
+        int [] temp = new int[n];
+        
+        // Determine whether the rotation is occuring to the left or right
+        if (rotateRight == true){
+
+            // Copy the last n elements in the data array to the temp array
+            for (int i = 0; i < n; i++){
+                temp[i] = data[data.length - n + i];
+            }
+
+            // Move the rest of the elements in data to the last index (shift all to the right of the list)
+            for (int i = data.length-1; i >= n; i--){
+                data[i] = data[i-n];
+            }
+
+            // Copy the temp array elements back into the data array
+            for (int i = 0; i < n; i++){
+                data[i] = temp[i];
+            } 
+        }
+        
+        else{
+            // Copy the first n elements in the data array to the temp array
+            for (int i = 0; i < n; i++){
+                temp[i] = data[i];
+            }
+
+            // Move the rest of the elements in data to the 0 index (shift all to the left of the list)
+            for (int i = n; i < data.length; i++){
+                data[i - n] = data[i];
+            }
+
+            // Copy the temp array elements back into the data array
+            for (int i = 0; i < n; i++){
+                data[i + data.length- n] = temp[i];
+            }     
+        }
+        
+         // Print out result
+            System.out.println(Arrays.toString(data));
+            }
+
+    public static void main(String[] args) {
+    
+    // Testing rotate function
+    rotate(new int[]{0, 1, 2, 3, 4, 5, 6}, 1,true);
+    rotate(new int[]{0, 1, 2, 3, 4, 5, 6}, 2,true);
+    rotate(new int[]{0, 1, 2, 3, 4, 5, 6}, 3,false);
+    }
+}
